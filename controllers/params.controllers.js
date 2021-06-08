@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Video = require("../models/video");
 const Liked = require("../models/liked");
+const WatchLater = require("../models/watchLater");
 
 const getUserById = async (req, res, next, id) => {
     try {
@@ -49,7 +50,7 @@ const getOrCreateLikedByUserId = async (req, res, next, id) => {
     try {
         let liked = await Liked.findOne({ user: id });
         if (!liked) {
-            newLiked = new Liked({ user: id, product: [] });
+            newLiked = new Liked({ user: id, video: [] });
             liked = await newLiked.save();
         }
         req.liked = liked;
@@ -63,8 +64,28 @@ const getOrCreateLikedByUserId = async (req, res, next, id) => {
     }
 };
 
+const getOrCreateWatchLaterByUserId = async (req, res, next, id) => {
+    try {
+        let watchLater = await WatchLater.findOne({ user: id });
+        if (!watchLater) {
+            newWatchLater = new WatchLater({ user: id, video: [] });
+            watchLater = await newWatchLater.save();
+        }
+        req.watchLater = watchLater;
+        next();
+    } catch (err) {
+        res.status(400).json({
+            success: false,
+            message:
+                "Something Went Wrong While Accessing or Creating WatchLater!",
+            errorMessage: err.message,
+        });
+    }
+};
+
 module.exports = {
     getUserById,
     getVideoByVideoId,
     getOrCreateLikedByUserId,
+    getOrCreateWatchLaterByUserId,
 };

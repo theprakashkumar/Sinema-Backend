@@ -7,12 +7,12 @@ const WatchLaterSchema = new Schema({
         ref: "User",
         required: true,
     },
-    watchLaterVideo: [
+    watchLaterVideos: [
         {
             video: { type: Schema.Types.ObjectId, ref: "Video" },
         },
     ],
 });
 
-const WatchLater = mongoose.model("WatchLaterSchema", WatchLater);
+const WatchLater = mongoose.model("WatchLater" ,WatchLaterSchema);
 module.exports = WatchLater;

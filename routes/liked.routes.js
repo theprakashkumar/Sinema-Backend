@@ -13,7 +13,7 @@ const {
 router.param("user", getOrCreateLikedByUserId);
 router.get("/:user", getLiked);
 
-router.put("/:user", addVideoToLiked);
+router.post("/:user", addVideoToLiked);
 router.delete("/:user", removeVideoFromLiked);
 
 module.exports = router;

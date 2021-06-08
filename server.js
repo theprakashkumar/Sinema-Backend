@@ -5,6 +5,8 @@ const connect = require("./db/connect");
 const userRouter = require("./routes/user.routes");
 const videoRouter = require("./routes/video.routes");
 const likedRouter = require("./routes/liked.routes");
+const watchLaterRouter = require("./routes/watchLater.routes");
+
 // configuration
 const app = express();
 app.use(express.json());
@@ -21,6 +23,7 @@ app.get("/", function (req, res) {
 app.use("/users", userRouter);
 app.use("/video", videoRouter);
 app.use("/liked", likedRouter);
+app.use("/later", watchLaterRouter);
 
 // listen on port 5000
 app.listen(5000, function () {
