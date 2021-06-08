@@ -6,26 +6,30 @@ const VideoSchema = new Schema({
         type: String,
         required: "Video Name is Required!",
     },
-    videoLink: {
+    creator: {
+        type: String,
+        required: "Video Creator is Required!",
+    },
+    embedId: {
         type: String,
         require: "Video Link is Required!",
         unique: [true, "Video Link Should Be Unique!"],
     },
-    thumbnailLink: {
+    thumbnail: {
         type: String,
         required: "Thumbnail Link is Required!",
         unique: [true, "Thumbnail Link Should Be Unique!"],
     },
     likes: {
-        type: Number,
+        type: String,
         required: "Number of Likes is Required!",
     },
     views: {
-        type: Number,
+        type: String,
         required: "Number of Views is Required!",
     },
 });
 
-const Video = mongoose.model(VideoSchema, Video);
+const Video = mongoose.model("Video", VideoSchema);
 
 module.exports = Video;
