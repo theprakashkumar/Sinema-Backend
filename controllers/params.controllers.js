@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const Video = require("../models/video");
+const Liked = require("../models/liked");
 
 const getUserById = async (req, res, next, id) => {
     try {
@@ -44,4 +45,26 @@ const getVideoByVideoId = async (req, res, next, id) => {
     }
 };
 
-module.exports = { getUserById, getVideoByVideoId };
+const getOrCreateLikedByUserId = async (req, res, next, id) => {
+    try {
+        let liked = await Liked.findOne({ user: id });
+        if (!liked) {
+            newLiked = new Liked({ user: id, product: [] });
+            liked = await newLiked.save();
+        }
+        req.liked = liked;
+        next();
+    } catch (err) {
+        res.status(400).json({
+            success: false,
+            message: "Something Went Wrong While Accessing or Creating Liked!",
+            errorMessage: err.message,
+        });
+    }
+};
+
+module.exports = {
+    getUserById,
+    getVideoByVideoId,
+    getOrCreateLikedByUserId,
+};

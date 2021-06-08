@@ -7,12 +7,12 @@ const LikedSchema = new Schema({
         ref: "User",
         required: true,
     },
-    likedVideo: [
+    likedVideos: [
         {
             video: { type: Schema.Types.ObjectId, ref: "Video" },
         },
     ],
 });
 
-const Liked = mongoose.model(Liked, "LikedSchema");
+const Liked = mongoose.model("Liked", LikedSchema);
 module.exports = Liked;
