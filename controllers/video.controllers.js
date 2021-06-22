@@ -19,6 +19,7 @@ const addNewVideo = async (req, res) => {
 };
 
 const getAllVideos = async (req, res) => {
+    // res.send("h")
     try {
         const video = await Video.find();
         res.json({
