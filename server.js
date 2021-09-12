@@ -24,11 +24,6 @@ app.get("/", function (req, res) {
 // routes
 app.use("/users", userRouter);
 app.use("/video", videoRouter);
-// app.get("/video", (req, res) => {
-//     res.json({
-//         "name": "I don't know my name do you know mine ?"
-//     })
-// })
 app.use("/liked", likedRouter);
 app.use("/later", watchLaterRouter);
 
