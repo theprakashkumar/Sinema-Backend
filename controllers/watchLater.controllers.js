@@ -53,7 +53,8 @@ const removeVideoFromWatchLater = async (req, res) => {
     } catch (err) {
         res.status(400).json({
             success: false,
-            message: "Something Went Wrong While Removing Video From watchLater!",
+            message:
+                "Something Went Wrong While Removing Video From watchLater!",
             errorMessage: err.message,
         });
     }
