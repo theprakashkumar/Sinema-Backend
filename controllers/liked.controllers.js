@@ -19,9 +19,9 @@ const getLiked = async (req, res) => {
 const addVideoToLiked = async (req, res) => {
     try {
         let liked = req.liked;
-        const video = req.body;
+        const body = req.body;
         liked.likedVideos.push({
-            video: video._id,
+            video: body._id,
         });
         const updatedLiked = await liked.save();
         res.status(200).json({
