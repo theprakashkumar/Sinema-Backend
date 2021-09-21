@@ -5,8 +5,11 @@ const jwt = require("jsonwebtoken");
 const getUserLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
+        console.log(email, password);
         let user = await User.findOne({ email });
+        console.log(user);
         if (user) {
+            console.log("user found");
             const validPassword = await bcrypt.compare(password, user.password);
             if (validPassword) {
                 const token = jwt.sign(

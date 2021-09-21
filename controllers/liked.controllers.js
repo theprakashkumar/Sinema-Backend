@@ -20,9 +20,7 @@ const addVideoToLiked = async (req, res) => {
     try {
         let liked = req.liked;
         const body = req.body;
-        liked.likedVideos.push({
-            video: body._id,
-        });
+        liked.likedVideos.push(body.videoId);
         const updatedLiked = await liked.save();
         res.status(200).json({
             success: true,
@@ -40,11 +38,9 @@ const addVideoToLiked = async (req, res) => {
 const removeVideoFromLiked = async (req, res) => {
     try {
         let liked = req.liked;
-        const video = req.body;
+        const videoId = req.body;
 
-        liked.likedVideos = liked.likedVideos.filter(
-            (item) => item.video.toString() !== video._id
-        );
+        liked.likedVideos.splice(liked.likedVideos.indexOf(videoId), 1);
         const updatedLiked = await liked.save();
         res.status(200).json({
             success: true,
