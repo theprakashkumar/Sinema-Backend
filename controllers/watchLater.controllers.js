@@ -19,10 +19,8 @@ const getWatchLater = async (req, res) => {
 const addVideoToWatchLater = async (req, res) => {
     try {
         let watchLater = req.watchLater;
-        const video = req.body;
-        watchLater.watchLaterVideos.push({
-            video: video._id,
-        });
+        const videoId = req.body.videoId;
+        watchLater.watchLaterVideos.push(videoId);
         const updatedWatchLater = await watchLater.save();
         res.status(200).json({
             success: true,
@@ -40,11 +38,13 @@ const addVideoToWatchLater = async (req, res) => {
 const removeVideoFromWatchLater = async (req, res) => {
     try {
         let watchLater = req.watchLater;
-        const video = req.body;
+        const videoId = req.body.videoId;
 
-        watchLater.watchLaterVideos = watchLater.watchLaterVideos.filter(
-            (item) => item.video.toString() !== video._id
+        watchLater.watchLaterVideos.splice(
+            watchLater.watchLaterVideos.indexOf(videoId),
+            1
         );
+
         const updatedWatchLater = await watchLater.save();
         res.status(200).json({
             success: true,
