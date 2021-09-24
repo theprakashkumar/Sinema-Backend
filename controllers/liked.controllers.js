@@ -3,9 +3,10 @@ const Liked = require("../models/liked");
 const getLiked = async (req, res) => {
     try {
         const liked = req.liked;
+        const dataToSend = await liked.populate("likedVideos").execPopulate();
         res.status(200).json({
             success: true,
-            liked,
+            liked: dataToSend,
         });
     } catch (err) {
         res.status(400).json({
@@ -18,13 +19,16 @@ const getLiked = async (req, res) => {
 
 const addVideoToLiked = async (req, res) => {
     try {
-        let liked = req.liked;
         const body = req.body;
+        let liked = req.liked;
         liked.likedVideos.push(body.videoId);
         const updatedLiked = await liked.save();
+        const dataToSend = await updatedLiked
+            .populate("likedVideos")
+            .execPopulate();
         res.status(200).json({
             success: true,
-            updatedLiked,
+            liked: dataToSend,
         });
     } catch (err) {
         res.status(400).json({
@@ -42,9 +46,12 @@ const removeVideoFromLiked = async (req, res) => {
 
         liked.likedVideos.splice(liked.likedVideos.indexOf(videoId), 1);
         const updatedLiked = await liked.save();
+        const dataToSend = await updatedLiked
+            .populate("likedVideos")
+            .execPopulate();
         res.status(200).json({
             success: true,
-            updatedLiked,
+            liked: dataToSend,
         });
     } catch (err) {
         res.status(400).json({

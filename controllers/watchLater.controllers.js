@@ -3,9 +3,12 @@ const WatchLater = require("../models/watchLater");
 const getWatchLater = async (req, res) => {
     try {
         const watchLater = req.watchLater;
+        const dataToSend = await watchLater
+            .populate("watchLaterVideos")
+            .execPopulate();
         res.status(200).json({
             success: true,
-            watchLater,
+            later: dataToSend,
         });
     } catch (err) {
         res.status(400).json({
@@ -22,9 +25,12 @@ const addVideoToWatchLater = async (req, res) => {
         const videoId = req.body.videoId;
         watchLater.watchLaterVideos.push(videoId);
         const updatedWatchLater = await watchLater.save();
+        const dataToSend = await updatedWatchLater
+            .populate("watchLaterVideos")
+            .execPopulate();
         res.status(200).json({
             success: true,
-            updatedWatchLater,
+            later: dataToSend,
         });
     } catch (err) {
         res.status(400).json({
@@ -46,9 +52,12 @@ const removeVideoFromWatchLater = async (req, res) => {
         );
 
         const updatedWatchLater = await watchLater.save();
+        const dataToSend = await updatedWatchLater
+            .populate("watchLaterVideos")
+            .execPopulate();
         res.status(200).json({
             success: true,
-            updatedWatchLater,
+            later: dataToSend,
         });
     } catch (err) {
         res.status(400).json({
