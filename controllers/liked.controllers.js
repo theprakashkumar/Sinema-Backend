@@ -42,7 +42,7 @@ const addVideoToLiked = async (req, res) => {
 const removeVideoFromLiked = async (req, res) => {
     try {
         let liked = req.liked;
-        const videoId = req.body;
+        const videoId = req.body.videoId;
 
         liked.likedVideos.splice(liked.likedVideos.indexOf(videoId), 1);
         const updatedLiked = await liked.save();
