@@ -25,7 +25,7 @@ const getUserLogin = async (req, res) => {
                     token: token,
                 });
             }
-            res.status(200).json({
+            res.status(403).json({
                 success: false,
                 message: "Wrong Credential",
             });
